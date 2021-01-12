@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="GTW_CHANNEL_ISO_INT_PARAMS" >
+  <resultMap id="BaseResultMap" type="com.path.gateway.dbmaps.vo.GTW_CHANNEL_ISO_INT_PARAMSVO" >
+    <id column="GTW_CHANNEL_PARAMS_ID" property="GTW_CHANNEL_PARAMS_ID" />
+    <result column="CHANNEL_ID" property="CHANNEL_ID" />
+    <result column="ENGN_ACCEPTOR_WORKER_NO" property="ENGN_ACCEPTOR_WORKER_NO" />
+    <result column="ENGN_WORKER_NO" property="ENGN_WORKER_NO" />
+    <result column="ENGN_ADD_LOGGING_HANDLER_YN" property="ENGN_ADD_LOGGING_HANDLER_YN" />
+    <result column="ENGN_ADD_ECHO_MSG_LISTENER_YN" property="ENGN_ADD_ECHO_MSG_LISTENER_YN" />
+    <result column="ENGN_LOG_FIELD_DESCRIPTION_YN" property="ENGN_LOG_FIELD_DESCRIPTION_YN" />
+    <result column="ENGN_LOG_SENSITIVE_DATA_YN" property="ENGN_LOG_SENSITIVE_DATA_YN" />
+    <result column="ENGN_REPLY_ON_ERROR_YN" property="ENGN_REPLY_ON_ERROR_YN" />
+    <result column="ENGN_IDLE_TIMEOUT" property="ENGN_IDLE_TIMEOUT" />
+    <result column="ENGN_CHARSET" property="ENGN_CHARSET" />
+    <result column="TASK_CONTAINER_CONSUMER_NO" property="TASK_CONTAINER_CONSUMER_NO" />
+    <result column="TASK_CONTAINER_SESSION_NO" property="TASK_CONTAINER_SESSION_NO" />
+    <result column="TASK_CONTAINER_DESTINATION" property="TASK_CONTAINER_DESTINATION" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    GTW_CHANNEL_PARAMS_ID, CHANNEL_ID, ENGN_ACCEPTOR_WORKER_NO, ENGN_WORKER_NO, ENGN_ADD_LOGGING_HANDLER_YN, 
+    ENGN_ADD_ECHO_MSG_LISTENER_YN, ENGN_LOG_FIELD_DESCRIPTION_YN, ENGN_LOG_SENSITIVE_DATA_YN, 
+    ENGN_REPLY_ON_ERROR_YN, ENGN_IDLE_TIMEOUT, ENGN_CHARSET, TASK_CONTAINER_CONSUMER_NO, 
+    TASK_CONTAINER_SESSION_NO, TASK_CONTAINER_DESTINATION
+  </sql>
+  <select id="selectGTW_CHANNEL_ISO_INT_PARAMS" resultMap="BaseResultMap" parameterType="com.path.gateway.dbmaps.vo.GTW_CHANNEL_ISO_INT_PARAMSVO" >
+    select 
+    <include refid="Base_Column_List" />
+    from GTW_CHANNEL_ISO_INT_PARAMS
+    where GTW_CHANNEL_PARAMS_ID = #{GTW_CHANNEL_PARAMS_ID}
+  </select>
+  <delete id="deleteGTW_CHANNEL_ISO_INT_PARAMS" parameterType="com.path.gateway.dbmaps.vo.GTW_CHANNEL_ISO_INT_PARAMSVO" >
+    delete from GTW_CHANNEL_ISO_INT_PARAMS
+    where GTW_CHANNEL_PARAMS_ID = #{GTW_CHANNEL_PARAMS_ID}
+  </delete>
+  <insert id="insertGTW_CHANNEL_ISO_INT_PARAMS" parameterType="com.path.gateway.dbmaps.vo.GTW_CHANNEL_ISO_INT_PARAMSVO" >
+        <selectKey resultType="java.math.BigDecimal" keyProperty="GTW_CHANNEL_PARAMS_ID" order="BEFORE" >
+		<if test="isOracle == 1">
+			SELECT GTW_CHANNEL_ISO_INT_PARAMS_SEQ.NEXTVAL FROM dual
+		</if>
+		<if test="isSybase == 1 and isSQLServer != 1 " >
+			SELECT next_identity('GTW_CHANNEL_ISO_INT_PARAMS')
+		</if>
+		<if test="isSQLServer == 1 " >
+			SELECT IDENT_CURRENT ('GTW_CHANNEL_ISO_INT_PARAMS') + 1
+		</if>
+	</selectKey>
+    insert into GTW_CHANNEL_ISO_INT_PARAMS
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+     <if test="isOracle == 1">
+        GTW_CHANNEL_PARAMS_ID,
+      </if>
+      <if test="CHANNEL_ID != null" >
+        CHANNEL_ID,
+      </if>
+      <if test="ENGN_ACCEPTOR_WORKER_NO != null" >
+        ENGN_ACCEPTOR_WORKER_NO,
+      </if>
+      <if test="ENGN_WORKER_NO != null" >
+        ENGN_WORKER_NO,
+      </if>
+      <if test="ENGN_ADD_LOGGING_HANDLER_YN != null and !&quot;&quot;.equals(ENGN_ADD_LOGGING_HANDLER_YN)" >
+        ENGN_ADD_LOGGING_HANDLER_YN,
+      </if>
+      <if test="ENGN_ADD_ECHO_MSG_LISTENER_YN != null and !&quot;&quot;.equals(ENGN_ADD_ECHO_MSG_LISTENER_YN)" >
+        ENGN_ADD_ECHO_MSG_LISTENER_YN,
+      </if>
+      <if test="ENGN_LOG_FIELD_DESCRIPTION_YN != null and !&quot;&quot;.equals(ENGN_LOG_FIELD_DESCRIPTION_YN)" >
+        ENGN_LOG_FIELD_DESCRIPTION_YN,
+      </if>
+      <if test="ENGN_LOG_SENSITIVE_DATA_YN != null and !&quot;&quot;.equals(ENGN_LOG_SENSITIVE_DATA_YN)" >
+        ENGN_LOG_SENSITIVE_DATA_YN,
+      </if>
+      <if test="ENGN_REPLY_ON_ERROR_YN != null and !&quot;&quot;.equals(ENGN_REPLY_ON_ERROR_YN)" >
+        ENGN_REPLY_ON_ERROR_YN,
+      </if>
+      <if test="ENGN_IDLE_TIMEOUT != null" >
+        ENGN_IDLE_TIMEOUT,
+      </if>
+      <if test="ENGN_CHARSET != null and !&quot;&quot;.equals(ENGN_CHARSET)" >
+        ENGN_CHARSET,
+      </if>
+      <if test="TASK_CONTAINER_CONSUMER_NO != null" >
+        TASK_CONTAINER_CONSUMER_NO,
+      </if>
+      <if test="TASK_CONTAINER_SESSION_NO != null" >
+        TASK_CONTAINER_SESSION_NO,
+      </if>
+      <if test="TASK_CONTAINER_DESTINATION != null and !&quot;&quot;.equals(TASK_CONTAINER_DESTINATION)" >
+        TASK_CONTAINER_DESTINATION,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="isOracle == 1">
+        #{GTW_CHANNEL_PARAMS_ID},
+      </if>
+      <if test="CHANNEL_ID != null" >
+        #{CHANNEL_ID},
+      </if>
+      <if test="ENGN_ACCEPTOR_WORKER_NO != null" >
+        #{ENGN_ACCEPTOR_WORKER_NO},
+      </if>
+      <if test="ENGN_WORKER_NO != null" >
+        #{ENGN_WORKER_NO},
+      </if>
+      <if test="ENGN_ADD_LOGGING_HANDLER_YN != null and !&quot;&quot;.equals(ENGN_ADD_LOGGING_HANDLER_YN)" >
+        #{ENGN_ADD_LOGGING_HANDLER_YN},
+      </if>
+      <if test="ENGN_ADD_ECHO_MSG_LISTENER_YN != null and !&quot;&quot;.equals(ENGN_ADD_ECHO_MSG_LISTENER_YN)" >
+        #{ENGN_ADD_ECHO_MSG_LISTENER_YN},
+      </if>
+      <if test="ENGN_LOG_FIELD_DESCRIPTION_YN != null and !&quot;&quot;.equals(ENGN_LOG_FIELD_DESCRIPTION_YN)" >
+        #{ENGN_LOG_FIELD_DESCRIPTION_YN},
+      </if>
+      <if test="ENGN_LOG_SENSITIVE_DATA_YN != null and !&quot;&quot;.equals(ENGN_LOG_SENSITIVE_DATA_YN)" >
+        #{ENGN_LOG_SENSITIVE_DATA_YN},
+      </if>
+      <if test="ENGN_REPLY_ON_ERROR_YN != null and !&quot;&quot;.equals(ENGN_REPLY_ON_ERROR_YN)" >
+        #{ENGN_REPLY_ON_ERROR_YN},
+      </if>
+      <if test="ENGN_IDLE_TIMEOUT != null" >
+        #{ENGN_IDLE_TIMEOUT},
+      </if>
+      <if test="ENGN_CHARSET != null and !&quot;&quot;.equals(ENGN_CHARSET)" >
+        #{ENGN_CHARSET},
+      </if>
+      <if test="TASK_CONTAINER_CONSUMER_NO != null" >
+        #{TASK_CONTAINER_CONSUMER_NO},
+      </if>
+      <if test="TASK_CONTAINER_SESSION_NO != null" >
+        #{TASK_CONTAINER_SESSION_NO},
+      </if>
+      <if test="TASK_CONTAINER_DESTINATION != null and !&quot;&quot;.equals(TASK_CONTAINER_DESTINATION)" >
+        #{TASK_CONTAINER_DESTINATION},
+      </if>
+    </trim>
+  </insert>
+  <sql id="sql_updateGTW_CHANNEL_ISO_INT_PARAMS" >
+    update GTW_CHANNEL_ISO_INT_PARAMS
+    <set >
+      <if test="CHANNEL_ID != null" >
+        CHANNEL_ID = #{CHANNEL_ID},
+      </if>
+      <if test="ENGN_ACCEPTOR_WORKER_NO != null" >
+        ENGN_ACCEPTOR_WORKER_NO = #{ENGN_ACCEPTOR_WORKER_NO},
+      </if>
+      <if test="ENGN_WORKER_NO != null" >
+        ENGN_WORKER_NO = #{ENGN_WORKER_NO},
+      </if>
+      <if test="ENGN_ADD_LOGGING_HANDLER_YN != null" >
+        <choose >
+          <when test="ENGN_ADD_LOGGING_HANDLER_YN.equals(&quot;&quot;)" >
+            ENGN_ADD_LOGGING_HANDLER_YN = NULL ,
+          </when>
+          <otherwise >
+            ENGN_ADD_LOGGING_HANDLER_YN = #{ENGN_ADD_LOGGING_HANDLER_YN},
+          </otherwise>
+        </choose>
+      </if>
+      <if test="ENGN_ADD_ECHO_MSG_LISTENER_YN != null" >
+        <choose >
+          <when test="ENGN_ADD_ECHO_MSG_LISTENER_YN.equals(&quot;&quot;)" >
+            ENGN_ADD_ECHO_MSG_LISTENER_YN = NULL ,
+          </when>
+          <otherwise >
+            ENGN_ADD_ECHO_MSG_LISTENER_YN = #{ENGN_ADD_ECHO_MSG_LISTENER_YN},
+          </otherwise>
+        </choose>
+      </if>
+      <if test="ENGN_LOG_FIELD_DESCRIPTION_YN != null" >
+        <choose >
+          <when test="ENGN_LOG_FIELD_DESCRIPTION_YN.equals(&quot;&quot;)" >
+            ENGN_LOG_FIELD_DESCRIPTION_YN = NULL ,
+          </when>
+          <otherwise >
+            ENGN_LOG_FIELD_DESCRIPTION_YN = #{ENGN_LOG_FIELD_DESCRIPTION_YN},
+          </otherwise>
+        </choose>
+      </if>
+      <if test="ENGN_LOG_SENSITIVE_DATA_YN != null" >
+        <choose >
+          <when test="ENGN_LOG_SENSITIVE_DATA_YN.equals(&quot;&quot;)" >
+            ENGN_LOG_SENSITIVE_DATA_YN = NULL ,
+          </when>
+          <otherwise >
+            ENGN_LOG_SENSITIVE_DATA_YN = #{ENGN_LOG_SENSITIVE_DATA_YN},
+          </otherwise>
+        </choose>
+      </if>
+      <if test="ENGN_REPLY_ON_ERROR_YN != null" >
+        <choose >
+          <when test="ENGN_REPLY_ON_ERROR_YN.equals(&quot;&quot;)" >
+            ENGN_REPLY_ON_ERROR_YN = NULL ,
+          </when>
+          <otherwise >
+            ENGN_REPLY_ON_ERROR_YN = #{ENGN_REPLY_ON_ERROR_YN},
+          </otherwise>
+        </choose>
+      </if>
+      <if test="ENGN_IDLE_TIMEOUT != null" >
+        ENGN_IDLE_TIMEOUT = #{ENGN_IDLE_TIMEOUT},
+      </if>
+      <if test="ENGN_CHARSET != null" >
+        <choose >
+          <when test="ENGN_CHARSET.equals(&quot;&quot;)" >
+            ENGN_CHARSET = NULL ,
+          </when>
+          <otherwise >
+            ENGN_CHARSET = #{ENGN_CHARSET},
+          </otherwise>
+        </choose>
+      </if>
+      <if test="TASK_CONTAINER_CONSUMER_NO != null" >
+        TASK_CONTAINER_CONSUMER_NO = #{TASK_CONTAINER_CONSUMER_NO},
+      </if>
+      <if test="TASK_CONTAINER_SESSION_NO != null" >
+        TASK_CONTAINER_SESSION_NO = #{TASK_CONTAINER_SESSION_NO},
+      </if>
+      <if test="TASK_CONTAINER_DESTINATION != null" >
+        <choose >
+          <when test="TASK_CONTAINER_DESTINATION.equals(&quot;&quot;)" >
+            TASK_CONTAINER_DESTINATION = NULL ,
+          </when>
+          <otherwise >
+            TASK_CONTAINER_DESTINATION = #{TASK_CONTAINER_DESTINATION},
+          </otherwise>
+        </choose>
+      </if>
+    </set>
+    where GTW_CHANNEL_PARAMS_ID = #{GTW_CHANNEL_PARAMS_ID}
+  </sql>
+  <update id="updateGTW_CHANNEL_ISO_INT_PARAMS" parameterType="com.path.gateway.dbmaps.vo.GTW_CHANNEL_ISO_INT_PARAMSVO" >
+    <include refid="sql_updateGTW_CHANNEL_ISO_INT_PARAMS" />
+  </update>
+</mapper>

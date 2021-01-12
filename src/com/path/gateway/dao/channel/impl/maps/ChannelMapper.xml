@@ -1,0 +1,616 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="channelMapper">
+
+	<resultMap id="resChannelListMap" type="com.path.gateway.vo.channel.ChannelCO">
+		<result property="gtw_CHANNELVO.CHANNEL_ID"			 						column="CHANNEL_ID" />
+		<result property="gtw_CHANNELVO.DESCRIPTION" 								column="DESCRIPTION" />
+		<result property="gtw_CHANNELVO.COMMUNICATION_PROTOCOL" 					column="COMMUNICATION_PROTOCOL" />
+		<result property="gtw_CHANNELVO.SERVER_TYPE" 								column="SERVER_TYPE" />
+		<result property="gtw_CHANNELVO.ACTIVE_QUEUE_YN" 							column="ACTIVE_QUEUE_YN" />
+		<result property="gtw_CHANNELVO.HTTP_USER" 									column="HTTP_USER" />
+		<result property="gtw_CHANNELVO.HTTP_PASSWORD" 								column="HTTP_PASSWORD" />
+		<result property="gtw_CHANNELVO.IP_ADDRESS" 								column="IP_ADDRESS" />
+		<result property="gtw_CHANNELVO.PORT" 										column="PORT" />
+		<result property="gtw_CHANNELVO.INTERFACE_CODE" 							column="INTERFACE_CODE" />
+		<result property="gtw_CHANNELVO.PARALLELISM_CONTROL" 						column="PARALLELISM_CONTROL" />
+		<result property="gtw_CHANNELVO.SOCKET_RESTART_INTERVAL" 					column="SOCKET_RESTART_INTERVAL" />
+		<result property="gtw_CHANNELVO.HTTP_REQUEST_TIME_OUT" 						column="HTTP_REQUEST_TIME_OUT" />
+		<result property="channelJMSVO.QUEUE_NAME" 						            column="QUEUE_NAME" />
+		<result property="channelJMSVO.PRODUCER_NUMBER" 						    column="PRODUCER_NUMBER" />
+		<result property="channelJMSVO.JMS_USER" 						            column="JMS_USER" />
+		<result property="channelJMSVO.JMS_PASSWORD" 						        column="JMS_PASSWORD" />
+		<result property="channelJMSVO.CONSUMER_NUMBER" 						    column="CONSUMER_NUMBER" />
+		<result property="channelJMSVO.CHANNEL_JMS_ID" 						        column="CHANNEL_JMS_ID" />
+		<result property="channelJMSVO.PROVIDER" 						            column="PROVIDER" />
+		<result property="channelJMSVO.RETRY" 						                column="RETRY" />
+		
+		
+		
+		<!-- channel Params -->
+		<result property="gtw_CHANNEL_ISO_INT_PARAMSVO.GTW_CHANNEL_PARAMS_ID" 				column="GTW_CHANNEL_PARAMS_ID" />
+		<result property="gtw_CHANNEL_ISO_INT_PARAMSVO.ENGN_ACCEPTOR_WORKER_NO" 			column="ENGN_ACCEPTOR_WORKER_NO" />
+		<result property="gtw_CHANNEL_ISO_INT_PARAMSVO.ENGN_WORKER_NO" 					  	column="ENGN_WORKER_NO" />
+		<result property="gtw_CHANNEL_ISO_INT_PARAMSVO.ENGN_ADD_LOGGING_HANDLER_YN" 		column="ENGN_ADD_LOGGING_HANDLER_YN" />
+		<result property="gtw_CHANNEL_ISO_INT_PARAMSVO.ENGN_ADD_ECHO_MSG_LISTENER_YN" 	column="ENGN_ADD_ECHO_MSG_LISTENER_YN" />
+		<result property="gtw_CHANNEL_ISO_INT_PARAMSVO.ENGN_LOG_FIELD_DESCRIPTION_YN" 		column="ENGN_LOG_FIELD_DESCRIPTION_YN" />
+		<result property="gtw_CHANNEL_ISO_INT_PARAMSVO.ENGN_LOG_SENSITIVE_DATA_YN" 			column="ENGN_LOG_SENSITIVE_DATA_YN" />
+		<result property="gtw_CHANNEL_ISO_INT_PARAMSVO.ENGN_REPLY_ON_ERROR_YN" 				column="ENGN_REPLY_ON_ERROR_YN" />
+		<result property="gtw_CHANNEL_ISO_INT_PARAMSVO.ENGN_IDLE_TIMEOUT" 					column="ENGN_IDLE_TIMEOUT" />
+		<result property="gtw_CHANNEL_ISO_INT_PARAMSVO.ENGN_CHARSET" 						column="ENGN_CHARSET" />
+		<result property="gtw_CHANNEL_ISO_INT_PARAMSVO.TASK_CONTAINER_CONSUMER_NO" 			column="TASK_CONTAINER_CONSUMER_NO" />
+		<result property="gtw_CHANNEL_ISO_INT_PARAMSVO.TASK_CONTAINER_SESSION_NO" 			column="TASK_CONTAINER_SESSION_NO" />
+		<result property="gtw_CHANNEL_ISO_INT_PARAMSVO.TASK_CONTAINER_DESTINATION" 			column="TASK_CONTAINER_DESTINATION" />
+				
+		<result property="interfaceDescription" 									column="interfaceDescription" />
+		<result property="interfaceType" 											column="interfaceType" />
+		<result property="gtw_CHANNELVO.USER_ID" 									column="USER_ID" />
+		<result property="gtw_CHANNELVO.END_POINT" 									column="END_POINT" />
+		<result property="gtw_CHANNELVO.STATUS" 									column="STATUS" />
+		<result property="gtw_CHANNELVO.DATE_UPDATED" 								column="DATE_UPDATED" />
+		<result property="statusDesc" 												column="STATUS_DESC" />
+		<result property="toBeStatusDesc"  											column="TO_BE_STATUS_DESC" />
+	</resultMap>
+	
+	<resultMap id="resVerificationListMap" type="com.path.gateway.vo.channel.ChannelCO">
+		<result property="imApiChannelsDetVO.HOST_NAME" column="HOST_NAME" />
+		<result property="imApiChannelsDetVO.HASH_KEY" column="HASH_KEY" />
+	</resultMap>
+	
+	<resultMap id="loadAssignedTemplateIdMap" type="com.path.gateway.dbmaps.vo.GTW_PWS_TMPLT_USRVO">
+		<result property="TEMPLATE_ID" column="TEMPLATE_ID" />
+	</resultMap>
+	
+	<resultMap id="resTempIdLkupMap" type="com.path.gateway.dbmaps.vo.GTW_PWS_TMPLT_MASTERVO">
+		<result column="TEMPLATE_ID" property="TEMPLATE_ID" />
+		<result column="TEMPLATE_DESC" property="TEMPLATE_DESC" />
+	</resultMap>
+	
+	<select id="returnChannelList" parameterType="com.path.gateway.vo.channel.ChannelSC"
+		resultMap="resChannelListMap">
+		<include refid="servicesCommon.commonGridWrpBefFlip" />
+		<include refid="queryChannelSQL" />
+		<include refid="servicesCommon.commonGridWrpAftFlip" />
+		<include refid="servicesCommon.commmonGridWrpFlipClose" />
+	</select>
+	
+	<select id="returnChannelListCount" parameterType="com.path.gateway.vo.channel.ChannelSC"
+		resultType="int">
+		<include refid="servicesCommon.commonGridWrpBefCnt" />
+		<include refid="queryChannelSQL" />
+		<include refid="servicesCommon.commonGridWrpAftCnt" />
+		<include refid="servicesCommon.commonGridCountWrpClose" />
+	</select>
+	
+	<select id="returnVerficationListForGrid" parameterType="com.path.gateway.vo.channel.ChannelSC"
+		resultMap="resVerificationListMap">
+		<include refid="servicesCommon.commonGridWrpBefFlip" />
+		<include refid="queryVerficationSQL" />
+		<include refid="servicesCommon.commonGridWrpAftFlip" />
+		<include refid="servicesCommon.commmonGridWrpFlipClose" />
+	</select>
+	
+	<select id="returnVerficationListCountForGrid" parameterType="com.path.gateway.vo.channel.ChannelSC"
+		resultType="int">
+		<include refid="servicesCommon.commonGridWrpBefCnt" />
+		<include refid="queryVerficationSQL" />
+		<include refid="servicesCommon.commonGridWrpAftCnt" />
+		<include refid="servicesCommon.commonGridCountWrpClose" />
+	</select>
+
+	<select id="returnMaxChannel" parameterType="com.path.gateway.vo.channel.ChannelSC"
+		resultType="BigDecimal">
+		<!-- SELECT MAX(EBILL.BILL_NO ) + 1 FROM EBILL -->
+		<!-- WHERE EBILL.COMP_CODE = #{compCode} -->
+		<!-- AND EBILL.BRANCH_CODE = #{branchCode} -->
+	</select>
+
+	<select id="edit" resultMap="resChannelListMap" parameterType="com.path.gateway.vo.channel.ChannelSC">
+		<include refid="queryChannelSQL" />
+		AND CHNLGTW.CHANNEL_ID = #{ChannelId}
+	</select>
+
+	<resultMap id="channelDetails_ResMap" type="com.path.gateway.vo.channel.ChannelCO">
+		<result property="gtw_CHANNELVO.CHANNEL_ID" column="CHANNEL_ID" />
+		<result property="gtw_CHANNELVO.DESCRIPTION" column="DESCRIPTION" />
+		<result property="gtw_CHANNELVO.USER_ID" column="USER_ID" />
+	</resultMap>
+	
+	
+	<select id="loadAssignedTemplateIdListGrid" resultMap="loadAssignedTemplateIdMap" parameterType="com.path.gateway.vo.channel.ChannelSC">
+		SELECT TEMPLATE_ID 
+		FROM GTW_PWS_TMPLT_USR
+		WHERE CHANNEL_ID = #{ChannelId}
+	</select>
+
+	<select id="returnTempIdListCount" resultType="int"	parameterType="com.path.gateway.vo.channel.ChannelSC">
+		<include refid="servicesCommon.commonGridWrpBefCnt" />
+		<include refid="retTempIdListSql" />
+		<include refid="servicesCommon.commonGridWrpAftCnt" />
+		<include refid="servicesCommon.commonGridCountWrpClose" />
+	</select>
+	
+	<select id="returnTempIdList" resultMap="resTempIdLkupMap" parameterType="com.path.gateway.vo.channel.ChannelSC">
+		<include refid="servicesCommon.commonGridWrpBefFlip" />
+		<include refid="retTempIdListSql" />
+		<include refid="servicesCommon.commonGridWrpAftFlip" />
+		<include refid="servicesCommon.commmonGridWrpFlipClose" />
+	</select>
+	
+	<delete id="deleteAllVarificationDetails" parameterType="com.path.gateway.vo.channel.ChannelCO">
+		DELETE FROM GTW_CHANNEL_DET
+		WHERE CHANNEL_ID = #{gtw_CHANNELVO.CHANNEL_ID}
+	</delete>
+	
+	<delete id="deleteAllTemplateId" parameterType="com.path.gateway.vo.channel.ChannelCO">
+		DELETE FROM GTW_PWS_TMPLT_USR
+		WHERE CHANNEL_ID = #{gtw_CHANNELVO.CHANNEL_ID}
+	</delete>
+
+	<sql id="queryChannelSQL">
+		SELECT 
+		CHNLGTW.CHANNEL_ID,
+		CHNLGTW.DESCRIPTION,
+		CHNLGTW.COMMUNICATION_PROTOCOL,
+		
+		(SELECT SYS_PARAM_LOV_TRANS.VALUE_DESC
+		FROM SYS_PARAM_LOV_TRANS
+		WHERE SYS_PARAM_LOV_TRANS.VALUE_CODE = CHNLGTW.COMMUNICATION_PROTOCOL
+		AND SYS_PARAM_LOV_TRANS.LOV_TYPE_ID = #{communicationProtocolLovCode,jdbcType=NUMERIC}
+		AND	SYS_PARAM_LOV_TRANS.LANG_CODE = #{preferredLanguage,jdbcType=VARCHAR}) AS communicationProtocol,
+		
+		CHNLGTW.SERVER_TYPE,
+		
+		(SELECT SYS_PARAM_LOV_TRANS.VALUE_DESC
+		FROM SYS_PARAM_LOV_TRANS
+		WHERE SYS_PARAM_LOV_TRANS.VALUE_CODE = CHNLGTW.SERVER_TYPE
+		AND SYS_PARAM_LOV_TRANS.LOV_TYPE_ID = #{serverTypeLovCode,jdbcType=NUMERIC}
+		AND	SYS_PARAM_LOV_TRANS.LANG_CODE = #{preferredLanguage,jdbcType=VARCHAR}) AS serverType,
+		
+		CHNLGTW.ACTIVE_QUEUE_YN,
+		CHNLGTW.HTTP_USER,
+		CHNLGTW.HTTP_PASSWORD,
+		CHNLGTW.IP_ADDRESS,
+		CHNLGTW.PORT,
+		CHNLGTW.END_POINT,
+		CHNLGTW.INTERFACE_CODE,
+		
+		(SELECT GTW_ATM_INTERFACES.DESCRIPTION 
+		from GTW_ATM_INTERFACES where CHNLGTW.INTERFACE_CODE= GTW_ATM_INTERFACES.INTERFACE_CODE) AS interfaceDescription,
+		
+		(SELECT GTW_ATM_INTERFACES.INTERFACE_TYPE 
+		from GTW_ATM_INTERFACES where CHNLGTW.INTERFACE_CODE= GTW_ATM_INTERFACES.INTERFACE_CODE) AS interfaceType,
+		
+		CHNLGTW.PARALLELISM_CONTROL,
+		CHNLGTW.SOCKET_RESTART_INTERVAL,
+		CHNLGTW.HTTP_REQUEST_TIME_OUT,
+		CHNLGTW.USER_ID,
+		CHNLGTW.STATUS,
+		CHNLGTW.DATE_UPDATED,
+		
+		CHNLParam.GTW_CHANNEL_PARAMS_ID,
+		CHNLParam.ENGN_ACCEPTOR_WORKER_NO,
+		CHNLParam.ENGN_WORKER_NO,
+		CHNLParam.ENGN_ADD_LOGGING_HANDLER_YN,
+		CHNLParam.ENGN_ADD_ECHO_MSG_LISTENER_YN,
+		CHNLParam.ENGN_LOG_FIELD_DESCRIPTION_YN,
+		CHNLParam.ENGN_LOG_SENSITIVE_DATA_YN,
+		CHNLParam.ENGN_REPLY_ON_ERROR_YN,
+		CHNLParam.ENGN_IDLE_TIMEOUT,
+		CHNLParam.ENGN_CHARSET,
+		CHNLParam.TASK_CONTAINER_CONSUMER_NO,
+		CHNLParam.TASK_CONTAINER_SESSION_NO,
+		CHNLParam.TASK_CONTAINER_DESTINATION,
+		
+		(SELECT SYS_PARAM_LOV_TRANS.VALUE_DESC
+		FROM SYS_PARAM_LOV_TRANS
+		WHERE SYS_PARAM_LOV_TRANS.VALUE_CODE = (CASE WHEN CHNLGTW.TO_BE_STATUS= 'T' OR CHNLGTW.TO_BE_STATUS = 'R' THEN 
+			              CHNLGTW.TO_BE_STATUS  ELSE CHNLGTW.STATUS END)
+			              
+		AND SYS_PARAM_LOV_TRANS.LOV_TYPE_ID = #{lovTypeId,jdbcType=NUMERIC}
+		AND	SYS_PARAM_LOV_TRANS.LANG_CODE = #{preferredLanguage,jdbcType=VARCHAR}) STATUS_DESC,
+		
+		(SELECT SYS_PARAM_LOV_TRANS.VALUE_DESC
+		FROM SYS_PARAM_LOV_TRANS
+		WHERE SYS_PARAM_LOV_TRANS.VALUE_CODE = CHNLGTW.TO_BE_STATUS
+		AND SYS_PARAM_LOV_TRANS.LOV_TYPE_ID = #{lovTypeId,jdbcType=NUMERIC}
+		AND	SYS_PARAM_LOV_TRANS.LANG_CODE = #{preferredLanguage,jdbcType=VARCHAR}) TO_BE_STATUS_DESC,
+		
+		CHNL_JMS.CHANNEL_JMS_ID,
+		CHNL_JMS.QUEUE_NAME,
+		CHNL_JMS.JMS_USER,
+		CHNL_JMS.JMS_PASSWORD,
+		CHNL_JMS.CONSUMER_NUMBER,
+		CHNL_JMS.PRODUCER_NUMBER,
+		CHNL_JMS.PROVIDER,
+		CHNL_JMS.RETRY
+		
+		FROM GTW_CHANNEL CHNLGTW
+		
+		left outer join GTW_CHANNEL_ISO_INT_PARAMS CHNLParam
+			on CHNLGTW.CHANNEL_ID=CHNLParam.CHANNEL_ID
+		
+		left outer join GTW_CHANNEL_JMS CHNL_JMS
+			on CHNLGTW.CHANNEL_ID=CHNL_JMS.CHANNEL_ID
+		
+		
+		<if test='crudMode!="R"'>
+			, SYS_PARAM_LOV_LK_OPT lovOpt
+		</if>
+		where 1 = 1 
+		<if test='crudMode!="R"'>
+			AND lovOpt.LOV_TYPE_ID = #{lovTypeLkOpt,jdbcType=NUMERIC}
+			AND lovOpt.PROG_REF = #{menuRef,jdbcType=VARCHAR}
+			AND lovOpt.APP_NAME = #{currAppName,jdbcType=VARCHAR}
+			
+			<if test='crudMode == "AS"'>
+				AND CHNLGTW.TO_BE_STATUS = 'T'
+				AND lovOpt.VALUE_CODE =  CHNLGTW.TO_BE_STATUS
+				
+			</if>
+			<if test='crudMode == "AR"'>
+				AND CHNLGTW.TO_BE_STATUS = 'R'
+				AND lovOpt.VALUE_CODE =  CHNLGTW.TO_BE_STATUS
+			</if>
+			<if test='crudMode == "P" or crudMode == "S" or crudMode == "RA" or crudMode == "UP"'>
+				AND lovOpt.VALUE_CODE =  CHNLGTW.STATUS
+				AND CHNLGTW.TO_BE_STATUS IS NULL
+			</if>
+		</if>
+	</sql>
+	
+	<sql id="queryVerficationSQL">
+		SELECT GTW_CHANNEL_DET.HOST_NAME,GTW_CHANNEL_DET.HASH_KEY
+		FROM GTW_CHANNEL_DET
+		WHERE GTW_CHANNEL_DET.CHANNEL_ID = #{ChannelId}
+	</sql>
+	
+	<sql id="retTempIdListSql">
+		SELECT T.TEMPLATE_ID AS TEMPLATE_ID,
+		T.TEMPLATE_DESC AS TEMPLATE_DESC
+		FROM GTW_PWS_TMPLT_MASTER T
+	</sql>
+	
+	<select id="validateUserId" parameterType="com.path.gateway.vo.channel.ChannelSC" resultType="int">
+		SELECT COUNT(1) FROM GTW_CHANNEL
+		WHERE UPPER(USER_ID) = UPPER(#{channelUserId})	
+		AND STATUS ='P'
+	</select>
+	
+	
+	<select id="getLatestDisplayOrder" resultType="java.math.BigDecimal"
+			parameterType="OPTVO">
+			SELECT MAX(DISP_ORDER)
+			FROM OPT 
+			WHERE PARENT_REF =#{PARENT_REF}
+			AND APP_NAME = #{APP_NAME}
+	 </select>
+
+	  <insert id="insertGTW_CHANNEL" parameterType="com.path.gateway.dbmaps.vo.GTW_CHANNELVO" >
+	  
+	  		<selectKey resultType="java.math.BigDecimal" keyProperty="CHANNEL_ID" order="BEFORE" >
+				<if test="isOracle == 1">
+					SELECT GTW_CHANNEL_SEQ.NEXTVAL FROM dual
+				</if>
+				<if test="isSybase == 1 and isSQLServer != 1 " >
+					SELECT next_identity('GTW_CHANNEL')
+				</if>
+				<if test="isSQLServer == 1 " >
+					SELECT IDENT_CURRENT ('GTW_CHANNEL') + 1
+				</if>
+			</selectKey>
+		
+		    insert into GTW_CHANNEL
+		    <trim prefix="(" suffix=")" suffixOverrides="," >
+		    	 <if test="isOracle == 1">
+	        		CHANNEL_ID,
+	      		</if>
+		      <if test="DESCRIPTION != null and !&quot;&quot;.equals(DESCRIPTION)" >
+		        DESCRIPTION,
+		      </if>
+		      <if test="USER_ID != null and !&quot;&quot;.equals(USER_ID)" >
+		        USER_ID,
+		      </if>
+		      <if test="COMMUNICATION_PROTOCOL != null and !&quot;&quot;.equals(COMMUNICATION_PROTOCOL)" >
+		        COMMUNICATION_PROTOCOL,
+		      </if>
+		      <if test="SERVER_TYPE != null and !&quot;&quot;.equals(SERVER_TYPE)" >
+		        SERVER_TYPE,
+		      </if>
+		      <if test="HTTP_USER != null and !&quot;&quot;.equals(HTTP_USER)" >
+		        HTTP_USER,
+		      </if>
+		      <if test="HTTP_PASSWORD != null and !&quot;&quot;.equals(HTTP_PASSWORD)" >
+		        HTTP_PASSWORD,
+		      </if>
+		      <if test="IP_ADDRESS != null and !&quot;&quot;.equals(IP_ADDRESS)" >
+		        IP_ADDRESS,
+		      </if>
+		      <if test="PORT != null and !&quot;&quot;.equals(PORT)" >
+		        PORT,
+		      </if>
+		      <if test="INTERFACE_CODE != null and INTERFACE_CODE != emptyBigDecimalValue" >
+		        INTERFACE_CODE,
+		      </if>
+		      <if test="ACTIVE_QUEUE_YN != null and !&quot;&quot;.equals(ACTIVE_QUEUE_YN)" >
+		        ACTIVE_QUEUE_YN,
+		      </if>
+		      <if test="PARALLELISM_CONTROL != null and PARALLELISM_CONTROL != emptyBigDecimalValue" >
+		        PARALLELISM_CONTROL,
+		      </if>
+		      <if test="HTTP_REQUEST_TIME_OUT != null and HTTP_REQUEST_TIME_OUT != emptyBigDecimalValue" >
+		        HTTP_REQUEST_TIME_OUT,
+		      </if>
+		      <if test="SOCKET_RESTART_INTERVAL != null and SOCKET_RESTART_INTERVAL != emptyBigDecimalValue" >
+		        SOCKET_RESTART_INTERVAL,
+		      </if>
+		      <if test="CREATED_BY != null and !&quot;&quot;.equals(CREATED_BY)" >
+		        CREATED_BY,
+		      </if>
+		      <if test="CREATED_DATE != null" >
+		        CREATED_DATE,
+		      </if>
+		      <if test="MODIFIED_BY != null and !&quot;&quot;.equals(MODIFIED_BY)" >
+		        MODIFIED_BY,
+		      </if>
+		      <if test="MODIFIED_DATE != null" >
+		        MODIFIED_DATE,
+		      </if>
+		      <if test="APPROVED_BY != null and !&quot;&quot;.equals(APPROVED_BY)" >
+		        APPROVED_BY,
+		      </if>
+		      <if test="APPROVED_DATE != null" >
+		        APPROVED_DATE,
+		      </if>
+		      DATE_UPDATED,
+		      <if test="DELETED_BY != null and !&quot;&quot;.equals(DELETED_BY)" >
+		        DELETED_BY,
+		      </if>
+		      <if test="DELETED_DATE != null" >
+		        DELETED_DATE,
+		      </if>
+		      <if test="REACTIVATED_BY != null and !&quot;&quot;.equals(REACTIVATED_BY)" >
+		        REACTIVATED_BY,
+		      </if>
+		      <if test="REACTIVATED_DATE != null" >
+		        REACTIVATED_DATE,
+		      </if>
+		      <if test="SERVER_APPROVED_DATE != null" >
+		        SERVER_APPROVED_DATE,
+		      </if>
+		      <if test="SERVER_CREATED_DATE != null" >
+		        SERVER_CREATED_DATE,
+		      </if>
+		      <if test="SERVER_DELETED_DATE != null" >
+		        SERVER_DELETED_DATE,
+		      </if>
+		      <if test="SERVER_MODIFIED_DATE != null" >
+		        SERVER_MODIFIED_DATE,
+		      </if>
+		      <if test="SERVER_REACTIVATED_DATE != null" >
+		        SERVER_REACTIVATED_DATE,
+		      </if>
+		      <if test="SERVER_SUSPENDED_DATE != null" >
+		        SERVER_SUSPENDED_DATE,
+		      </if>
+		      <if test="STATUS != null and !&quot;&quot;.equals(STATUS)" >
+		        STATUS,
+		      </if>
+		      <if test="SUSPENDED_BY != null and !&quot;&quot;.equals(SUSPENDED_BY)" >
+		        SUSPENDED_BY,
+		      </if>
+		      <if test="SUSPENDED_DATE != null" >
+		        SUSPENDED_DATE,
+		      </if>
+		      <if test="END_POINT != null and !&quot;&quot;.equals(END_POINT)" >
+		        END_POINT,
+		      </if>
+		    </trim>
+		    <trim prefix="values (" suffix=")" suffixOverrides="," >
+		    	<if test="isOracle == 1">
+		        	#{CHANNEL_ID},
+		      	</if>
+			      <if test="DESCRIPTION != null and !&quot;&quot;.equals(DESCRIPTION)" >
+			        #{DESCRIPTION},
+			      </if>
+			      <if test="USER_ID != null and !&quot;&quot;.equals(USER_ID)" >
+			        #{USER_ID},
+			      </if>
+			      <if test="COMMUNICATION_PROTOCOL != null and !&quot;&quot;.equals(COMMUNICATION_PROTOCOL)" >
+			        #{COMMUNICATION_PROTOCOL},
+			      </if>
+			      <if test="SERVER_TYPE != null and !&quot;&quot;.equals(SERVER_TYPE)" >
+			        #{SERVER_TYPE},
+			      </if>
+			      <if test="HTTP_USER != null and !&quot;&quot;.equals(HTTP_USER)" >
+			        #{HTTP_USER},
+			      </if>
+			      <if test="HTTP_PASSWORD != null and !&quot;&quot;.equals(HTTP_PASSWORD)" >
+			        #{HTTP_PASSWORD},
+			      </if>
+			      <if test="IP_ADDRESS != null and !&quot;&quot;.equals(IP_ADDRESS)" >
+			        #{IP_ADDRESS},
+			      </if>
+			      <if test="PORT != null and !&quot;&quot;.equals(PORT)" >
+			        #{PORT},
+			      </if>
+			      <if test="INTERFACE_CODE != null and INTERFACE_CODE != emptyBigDecimalValue" >
+			        #{INTERFACE_CODE},
+			      </if>
+			      <if test="ACTIVE_QUEUE_YN != null and !&quot;&quot;.equals(ACTIVE_QUEUE_YN)" >
+			        #{ACTIVE_QUEUE_YN},
+			      </if>
+			      <if test="PARALLELISM_CONTROL != null and PARALLELISM_CONTROL != emptyBigDecimalValue" >
+			        #{PARALLELISM_CONTROL},
+			      </if>
+			      <if test="HTTP_REQUEST_TIME_OUT != null and HTTP_REQUEST_TIME_OUT != emptyBigDecimalValue" >
+			        #{HTTP_REQUEST_TIME_OUT},
+			      </if>
+			      <if test="SOCKET_RESTART_INTERVAL != null and SOCKET_RESTART_INTERVAL != emptyBigDecimalValue" >
+			        #{SOCKET_RESTART_INTERVAL},
+			      </if>
+			      <if test="CREATED_BY != null and !&quot;&quot;.equals(CREATED_BY)" >
+			        #{CREATED_BY},
+			      </if>
+			      <if test="CREATED_DATE != null" >
+			        #{CREATED_DATE},
+			      </if>
+			      <if test="MODIFIED_BY != null and !&quot;&quot;.equals(MODIFIED_BY)" >
+			        #{MODIFIED_BY},
+			      </if>
+			      <if test="MODIFIED_DATE != null" >
+			        #{MODIFIED_DATE},
+			      </if>
+			      <if test="APPROVED_BY != null and !&quot;&quot;.equals(APPROVED_BY)" >
+			        #{APPROVED_BY},
+			      </if>
+			      <if test="APPROVED_DATE != null" >
+			        #{APPROVED_DATE},
+			      </if>
+			      <choose >
+			        <when test="isSybase == 1" >
+			           GETDATE(),
+			        </when>
+			        <otherwise >
+			           SYSDATE,
+			        </otherwise>
+			      </choose>
+			      <if test="DELETED_BY != null and !&quot;&quot;.equals(DELETED_BY)" >
+			        #{DELETED_BY},
+			      </if>
+			      <if test="DELETED_DATE != null" >
+			        #{DELETED_DATE},
+			      </if>
+			      <if test="REACTIVATED_BY != null and !&quot;&quot;.equals(REACTIVATED_BY)" >
+			        #{REACTIVATED_BY},
+			      </if>
+			      <if test="REACTIVATED_DATE != null" >
+			        #{REACTIVATED_DATE},
+			      </if>
+			      <if test="SERVER_APPROVED_DATE != null" >
+			        #{SERVER_APPROVED_DATE},
+			      </if>
+			      <if test="SERVER_CREATED_DATE != null" >
+			        #{SERVER_CREATED_DATE},
+			      </if>
+			      <if test="SERVER_DELETED_DATE != null" >
+			        #{SERVER_DELETED_DATE},
+			      </if>
+			      <if test="SERVER_MODIFIED_DATE != null" >
+			        #{SERVER_MODIFIED_DATE},
+			      </if>
+			      <if test="SERVER_REACTIVATED_DATE != null" >
+			        #{SERVER_REACTIVATED_DATE},
+			      </if>
+			      <if test="SERVER_SUSPENDED_DATE != null" >
+			        #{SERVER_SUSPENDED_DATE},
+			      </if>
+			      <if test="STATUS != null and !&quot;&quot;.equals(STATUS)" >
+			        #{STATUS},
+			      </if>
+			      <if test="SUSPENDED_BY != null and !&quot;&quot;.equals(SUSPENDED_BY)" >
+			        #{SUSPENDED_BY},
+			      </if>
+			      <if test="SUSPENDED_DATE != null" >
+			        #{SUSPENDED_DATE},
+			      </if>
+			      <if test="END_POINT != null and !&quot;&quot;.equals(END_POINT)" >
+			        #{END_POINT},
+			      </if>
+			</trim>
+  </insert>
+
+	<insert id="saveGTW_CHANNEL_JMS"
+		parameterType="com.path.gateway.dbmaps.vo.GTW_CHANNEL_JMSVO">
+		<selectKey resultType="java.math.BigDecimal"
+			keyProperty="CHANNEL_JMS_ID" order="BEFORE">
+			<if test="isOracle == 1">
+				SELECT GTW_CHANNEL_JMS_SEQ.NEXTVAL FROM dual
+			</if>
+			<if test="isSybase == 1 and isSQLServer != 1 ">
+				SELECT next_identity('GTW_CHANNEL_JMS_SEQ')
+			</if>
+			<if test="isSQLServer == 1 ">
+				SELECT IDENT_CURRENT ('GTW_CHANNEL_JMS_SEQ') + 1
+			</if>
+		</selectKey>
+		INSERT INTO GTW_CHANNEL_JMS
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="isOracle == 1">
+				CHANNEL_JMS_ID,
+			</if>
+			<if test="QUEUE_NAME != null">
+				CHANNEL_ID,
+			</if>
+
+			<if test="QUEUE_NAME != null and !&quot;&quot;.equals(QUEUE_NAME)">
+				QUEUE_NAME,
+			</if>
+
+			<if test="JMS_USER != null and !&quot;&quot;.equals(JMS_USER)">
+				JMS_USER,
+			</if>
+
+			<if
+				test="JMS_PASSWORD != null and !&quot;&quot;.equals(JMS_PASSWORD)">
+				JMS_PASSWORD,
+			</if>
+
+			<if test="CONSUMER_NUMBER != null ">
+				CONSUMER_NUMBER,
+			</if>
+
+			<if test="PRODUCER_NUMBER != null ">
+				PRODUCER_NUMBER,
+			</if>
+
+			<if test="PROVIDER != null and !&quot;&quot;.equals(PROVIDER)">
+				PROVIDER,
+			</if>
+			<if test="RETRY != null">
+				RETRY,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="isOracle == 1">
+				#{CHANNEL_JMS_ID},
+			</if>
+
+			<if test="CHANNEL_ID  != null">
+				#{CHANNEL_ID},
+			</if>
+			<if test="QUEUE_NAME != null and !&quot;&quot;.equals(QUEUE_NAME)">
+				#{QUEUE_NAME},
+			</if>
+
+			<if test="JMS_USER != null and !&quot;&quot;.equals(JMS_USER)">
+				#{JMS_USER},
+			</if>
+			<if
+				test="JMS_PASSWORD != null and !&quot;&quot;.equals(JMS_PASSWORD)">
+				#{JMS_PASSWORD},
+			</if>
+			<if
+				test="CONSUMER_NUMBER != null and !&quot;&quot;.equals(CONSUMER_NUMBER)">
+				#{CONSUMER_NUMBER},
+			</if>
+			<if
+				test="PRODUCER_NUMBER != null and !&quot;&quot;.equals(PRODUCER_NUMBER)">
+				#{PRODUCER_NUMBER},
+			</if>
+			<if test="PROVIDER != null and !&quot;&quot;.equals(PROVIDER)">
+				#{PROVIDER},
+			</if>
+
+			<if test="RETRY  != null">
+				#{RETRY},
+			</if>
+
+		</trim>
+	</insert>
+	 
+	 
+	 
+	 
+</mapper>

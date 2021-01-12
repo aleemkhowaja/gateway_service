@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="GTW_CHANNEL_JMS" >
+  <resultMap id="BaseResultMap" type="com.path.gateway.dbmaps.vo.GTW_CHANNEL_JMSVO" >
+    <id column="CHANNEL_JMS_ID" property="CHANNEL_JMS_ID" />
+    <result column="CHANNEL_ID" property="CHANNEL_ID" />
+    <result column="QUEUE_NAME" property="QUEUE_NAME" />
+    <result column="JMS_USER" property="JMS_USER" />
+    <result column="JMS_PASSWORD" property="JMS_PASSWORD" />
+    <result column="CONSUMER_NUMBER" property="CONSUMER_NUMBER" />
+    <result column="PRODUCER_NUMBER" property="PRODUCER_NUMBER" />
+    <result column="PROVIDER" property="PROVIDER" />
+    <result column="RETRY" property="RETRY" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    CHANNEL_JMS_ID, CHANNEL_ID, QUEUE_NAME, JMS_USER, JMS_PASSWORD, CONSUMER_NUMBER, 
+    PRODUCER_NUMBER, PROVIDER, RETRY
+  </sql>
+  <select id="selectGTW_CHANNEL_JMS" resultMap="BaseResultMap" parameterType="com.path.gateway.dbmaps.vo.GTW_CHANNEL_JMSVOKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from GTW_CHANNEL_JMS
+    where CHANNEL_JMS_ID = #{CHANNEL_JMS_ID}
+  </select>
+  <delete id="deleteGTW_CHANNEL_JMS" parameterType="com.path.gateway.dbmaps.vo.GTW_CHANNEL_JMSVOKey" >
+    delete from GTW_CHANNEL_JMS
+    where CHANNEL_JMS_ID = #{CHANNEL_JMS_ID}
+  </delete>
+  <insert id="insertGTW_CHANNEL_JMS" parameterType="com.path.gateway.dbmaps.vo.GTW_CHANNEL_JMSVO" >
+    insert into GTW_CHANNEL_JMS
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="CHANNEL_JMS_ID != null" >
+        CHANNEL_JMS_ID,
+      </if>
+      <if test="CHANNEL_ID != null" >
+        CHANNEL_ID,
+      </if>
+      <if test="QUEUE_NAME != null" >
+        QUEUE_NAME,
+      </if>
+      <if test="JMS_USER != null" >
+        JMS_USER,
+      </if>
+      <if test="JMS_PASSWORD != null" >
+        JMS_PASSWORD,
+      </if>
+      <if test="CONSUMER_NUMBER != null" >
+        CONSUMER_NUMBER,
+      </if>
+      <if test="PRODUCER_NUMBER != null" >
+        PRODUCER_NUMBER,
+      </if>
+      <if test="PROVIDER != null" >
+        PROVIDER,
+      </if>
+      <if test="RETRY != null" >
+        RETRY,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="CHANNEL_JMS_ID != null" >
+        #{CHANNEL_JMS_ID},
+      </if>
+      <if test="CHANNEL_ID != null" >
+        #{CHANNEL_ID},
+      </if>
+      <if test="QUEUE_NAME != null" >
+        #{QUEUE_NAME},
+      </if>
+      <if test="JMS_USER != null" >
+        #{JMS_USER},
+      </if>
+      <if test="JMS_PASSWORD != null" >
+        #{JMS_PASSWORD},
+      </if>
+      <if test="CONSUMER_NUMBER != null" >
+        #{CONSUMER_NUMBER},
+      </if>
+      <if test="PRODUCER_NUMBER != null" >
+        #{PRODUCER_NUMBER},
+      </if>
+      <if test="PROVIDER != null" >
+        #{PROVIDER},
+      </if>
+      <if test="RETRY != null" >
+        #{RETRY},
+      </if>
+    </trim>
+  </insert>
+  <sql id="sql_updateGTW_CHANNEL_JMS" >
+    update GTW_CHANNEL_JMS
+    <set >
+      <if test="CHANNEL_ID != null" >
+        CHANNEL_ID = #{CHANNEL_ID},
+      </if>
+      <if test="QUEUE_NAME != null" >
+        QUEUE_NAME = #{QUEUE_NAME},
+      </if>
+      <if test="JMS_USER != null" >
+        JMS_USER = #{JMS_USER},
+      </if>
+      <if test="JMS_PASSWORD != null" >
+        JMS_PASSWORD = #{JMS_PASSWORD},
+      </if>
+      <if test="CONSUMER_NUMBER != null" >
+        CONSUMER_NUMBER = #{CONSUMER_NUMBER},
+      </if>
+      <if test="PRODUCER_NUMBER != null" >
+        PRODUCER_NUMBER = #{PRODUCER_NUMBER},
+      </if>
+      <if test="PROVIDER != null" >
+        PROVIDER = #{PROVIDER},
+      </if>
+      <if test="RETRY != null" >
+        RETRY = #{RETRY},
+      </if>
+    </set>
+    where CHANNEL_JMS_ID = #{CHANNEL_JMS_ID}
+  </sql>
+  <update id="updateGTW_CHANNEL_JMS" parameterType="com.path.gateway.dbmaps.vo.GTW_CHANNEL_JMSVO" >
+    <include refid="sql_updateGTW_CHANNEL_JMS" />
+  </update>
+</mapper>
